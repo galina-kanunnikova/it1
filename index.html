@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>Quiz</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+        <script>
+               
+                  var xhttp;    
+                  xhttp = new XMLHttpRequest();
+                  xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                      document.getElementById("txtHint").innerHTML = this.responseText;
+                    }
+                  };
+                  xhttp.open("GET", "getcustomer.asp?q="+str, true);
+                  xhttp.send();
+              
+                </script>
+
+
+
+
+        <img src="./bild.jpg " class="bild" >
+        <h1 style="position: relative;text-align: center;top: 50px;font-size: 60px;font-style: italic;background-color: whitesmoke;">Herzlich Willkommen!</h1>
+       
+        <button class="startBtn" id="startBtn" onclick="start()"  >Quiz Starten</button>
+
+
+        <script>
+            function start(){
+               
+                var x = document.getElementById('Quiz');
+                var y = document.getElementById('startBtn');
+                var z = document.getElementById('container');
+                
+               // var checkViolin 
+             schluessel   = document.getElementById("violin").checked;
+var checkBass = document.getElementById("bass").checked;
+ console.log(schluessel);
+ console.log(checkBass);
+
+
+                z.style.display = "none";
+                if (x.style.display === "block"){
+                    x.style.display = "none";
+                   
+                    y.style.display = "block";
+                }else {
+                    x.style.display = "block";
+                    y.style.display = "none";
+                   
+                   
+            
+                }
+            
+            }
+            
+            </script> 
+
+
+
+
+<div id ="container" class="container">
+<form>
+    <input type="checkbox" id="violin" onclick="check()" value="violin">
+    <label for="violin" id ="lab1"></label>
+    <img src="./violin.jpg " class="bild2" >
+
+    <input type="checkbox" id="bass"  onclick="check()"   value="bass" >
+    <label for="bass" id ="lab1"   ></label>
+    <img src="./bass.jpg " class="bild3" >
+  </form>
+</div>
+<script>
+    function check() {
+        if  (document.getElementById("violin").checked == true){
+      window.violinChecked = true;
+      console.log("violin checked");
+     }else {
+        window.violinChecked = false;
+      console.log("violin unchecked");
+     }
+
+     if  (document.getElementById("bass").checked == true){
+      window.bassChecked = true;
+      console.log("bass checked");
+     }else {
+      window.bassChecked = false;
+      console.log("bass unchecked");
+     }
+}
+    
+    
+    </script>
+
+
+
+
+
+
+
+    <div class="grid"  id="Quiz"  >
+           
+
+        <div id="QuizContainer">
+            <h1>Quiz</h1>
+            <hr style="margin-bottom: 20px">
+            <div id="noten"> </div>
+            <p id="question"></p>
+
+            <div class="buttons">
+                <button id="btn0"><span id="choice0"></span></button>
+                <button id="btn1"><span id="choice1"></span></button>
+                <button id="btn2"><span id="choice2"></span></button>
+                <button id="btn3"><span id="choice3"></span></button>
+            </div>
+
+            <hr style="margin-top: 50px">
+            <footer>
+                <p id="progress">Question x of y</p>
+            </footer>
+        </div>
+    </div>
+
+    
+    <script src="./dist/main.js"></script>
+    
+
+<!-- 
+    
+    
+    <script src="noten.js"></script>
+    
+    
+    <script  src="quiz.js"></script>
+<script   src="question.js"></script>
+<script  src="app.js"></script>-->
+</body>
+</html>
