@@ -1,1 +1,8 @@
-python -m SimpleHTTPServer
+python -m SimpleHTTPServer  : localhost:8000 starten 
+
+git checkout 
+git reset --hard origin/test :load from branch test
+git push --force
+
+
+webpack app.js  ./dist/main.js
