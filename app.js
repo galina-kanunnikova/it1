@@ -11,7 +11,11 @@ x.style.display = "none";
 
 var z = document.getElementById("violin");
 //z.checked = true;
-
+if  (document.getElementById("violin").checked == true){
+    console.log("check");
+  }else{
+    console.log("uncheck");
+  }
 var score = 0;
 var questionIndex = 0;
 var noten = 0 ;
