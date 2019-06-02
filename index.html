@@ -7,25 +7,8 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
 </head>
 <body>
-
-        <script>
-               
-                  var xhttp;    
-                  xhttp = new XMLHttpRequest();
-                  xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                      document.getElementById("txtHint").innerHTML = this.responseText;
-                    }
-                  };
-                  xhttp.open("GET", "getcustomer.asp?q="+str, true);
-                  xhttp.send();
-              
-                </script>
-
-
 
 
         <img src="./bild.jpg " class="bild" >
@@ -35,37 +18,83 @@
 
 
         <script>
-            function start(){
-               
-                var x = document.getElementById('Quiz');
-                var y = document.getElementById('startBtn');
-                var z = document.getElementById('container');
-                
-               // var checkViolin 
-             schluessel   = document.getElementById("violin").checked;
-var checkBass = document.getElementById("bass").checked;
- console.log(schluessel);
- console.log(checkBass);
-
-
-                z.style.display = "none";
-                if (x.style.display === "block"){
-                    x.style.display = "none";
-                   
-                    y.style.display = "block";
-                }else {
-                    x.style.display = "block";
-                    y.style.display = "none";
-                   
-                   
             
-                }
-            
-            }
-            
-            </script> 
+                function start() {
+                        var x = document.getElementById('Quiz');
+                        var y = document.getElementById('startBtn');
+                        var z = document.getElementById('container');
+                        var s = document.getElementById('stopBtn');
+                        // var checkViolin 
+                        schluessel = document.getElementById("violin").checked;
+                        var checkBass = document.getElementById("bass").checked;
+                        console.log(schluessel);
+                        console.log(checkBass);
 
 
+                        z.style.display = "none";
+                        if (x.style.display === "block") {
+                            x.style.display = "none";
+                            y.style.display = "block";
+                            s.style.display = "none";
+                            z.style.display = "block";
+                        } else {
+                            x.style.display = "block";
+                            y.style.display = "none";
+                            s.style.display = "block";
+                            //z.style.display = "block";
+
+                        }
+                        window.displayQuiz();
+                    }
+
+                    function stop(){
+
+                        swal(
+                         { 
+                         title: "Möchten Sie das Spiel wirklich beenden?",   
+                         text: "Das Ergebnis wird nicht gespeichert",   
+                         icon: "warning",
+                        closeOnClickOutside: false,
+                        buttons: {
+                        abbrechen:{
+                            text: "Beenden",
+                            value: "abbrechen"
+                        },
+                        confirm:{
+                            text: "Fortsetzen",
+                            value: "fortsetzen"
+                           }
+                         
+
+                         }
+                        })
+ 
+                        .then((value) => {
+                         switch (value) {
+ 
+                          case "abbrechen":
+                          swal("Bis bald", "", "success");
+                          window.questionIndex = 0 ;
+                          window.score = 0;
+                          start();
+                          //window.displayQuiz();
+                          break;
+ 
+                          case "fortsetzen":
+                         
+                           break;
+ 
+                          default:
+                          swal("default");
+                        }
+
+                     })
+                 }
+            
+         </script> 
+
+
+<button class="stopBtn" id="stopBtn" onclick="stop()"  >Quiz beenden</button>
 
 
 <div id ="container" class="container">
@@ -96,6 +125,7 @@ var checkBass = document.getElementById("bass").checked;
       window.bassChecked = false;
       console.log("bass unchecked");
      }
+     
 }
     
     
@@ -108,14 +138,13 @@ var checkBass = document.getElementById("bass").checked;
 
 
     <div class="grid"  id="Quiz"  >
-           
+            <ul>  
 
         <div id="QuizContainer">
             <h1>Quiz</h1>
             <hr style="margin-bottom: 20px">
-            <div id="noten"> </div>
-            <p id="question"></p>
-
+            <div id="noten"  > </div>
+           
             <div class="buttons">
                 <button id="btn0"><span id="choice0"></span></button>
                 <button id="btn1"><span id="choice1"></span></button>
@@ -123,11 +152,12 @@ var checkBass = document.getElementById("bass").checked;
                 <button id="btn3"><span id="choice3"></span></button>
             </div>
 
-            <hr style="margin-top: 50px">
-            <footer>
-                <p id="progress">Question x of y</p>
+            <hr style="margin-top: 3vh">
+            <footer style="margin-left: 30%;">
+                <p id="progress">Question 1 of 12</p>
             </footer>
         </div>
+    </ul>
     </div>
 
     

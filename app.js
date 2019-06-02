@@ -1,23 +1,22 @@
 
-
-
-import Question from'./question';
 import {notenJson,drawNote} from './noten';
+import swal from 'sweetalert';
+import { version } from 'punycode';
 
 window.violinChecked = false;
 window.bassChecked = false;
 var x = document.getElementById('Quiz');
 x.style.display = "none";
+var versuch = 0;
 
 var z = document.getElementById("violin");
-//z.checked = true;
 if  (document.getElementById("violin").checked == true){
     console.log("check");
   }else{
     console.log("uncheck");
   }
-var score = 0;
-var questionIndex = 0;
+window.score = 0;
+window.questionIndex = 0;
 var noten = 0 ;
 
 function Noten(schl, note, choices) {
@@ -41,11 +40,29 @@ setTimeout(function(){
       }
         
     }
- displayQuiz();
+    randomSort(MixNoten);
   }, 2000);
-  
 
-function displayQuiz(){
+  function randomSort(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+  MixNoten = array;
+  displayQuiz();
+  return array;
+  }
+
+window.displayQuiz = function(){
+   console.log("display");
+    
     if ((window.violinChecked == true) && (window.bassChecked == false)) { // Violin ONLY
         noten = 6;
         nextQuest(ViolinNoten);
@@ -60,34 +77,41 @@ function displayQuiz(){
     }
 }
 
+var ended = false;
 
-function  isEnded () {
-    return questionIndex ===  noten - 1;
+  function  isEnded () {
+    if(window.questionIndex ===  noten ){
+        ended = true;
+    }else {
+        ended = false;
+    }
 }
 
 
+
 function nextQuest(note) {
-    console.log(" nextQuest ");
-    if(isEnded()) {
+    console.log(" nextQuest");
+    console.log("index "+ window.questionIndex);
+    console.log("noten "+noten);
+    isEnded();
+    if(ended) {
         showScores();
         console.log("ended");
-       // var element = document.getElementById("noten");
-      //  element.innerHTML = "";
     }
     else {
         // show question
-        console.log("index "+questionIndex);
-        console.log("note "+ note[questionIndex].note   );
+        versuch = 0;
+        console.log("note "+ note[window.questionIndex].note   );
         var element = document.getElementById("noten");
         element.innerHTML = "";
-        drawNote(note[questionIndex].schl,note[questionIndex].note);
+        drawNote(note[window.questionIndex].schl,note[window.questionIndex].note);
         // show options
-        var choices =  note[questionIndex].choices;
+        var choices =  note[window.questionIndex].choices;
         for(var i = 0; i < 4; i++) {
             document.getElementById("btn"+i).style.backgroundColor = "#778897";
             var element = document.getElementById("choice" + i);
             element.innerHTML = choices[i];
-            guess("btn" + i,choices[i],note[questionIndex].note);
+            guess("btn" + i,choices[i],note[window.questionIndex].note);
         }
 
         showProgress();
@@ -96,13 +120,21 @@ function nextQuest(note) {
 
 
 function guess(id, answer,note) {
+    
     var button = document.getElementById(id);
     button.onclick = function() {
+        versuch ++;
+        console.log("versuch"+versuch);
+
        if(note == (answer+"4")) { //CORRECT
-            score++;
-            console.log("correct");
+           switch(versuch){
+               case 1:score++;
+               console.log("correct");
+               break;
+               default:;
+           }
             button.style.backgroundColor = "green";
-            questionIndex++;
+            window.questionIndex++;
             displayQuiz();
         }else {                 //FALSE
             button.style.backgroundColor = "red";
@@ -113,17 +145,46 @@ function guess(id, answer,note) {
 
 
 function showProgress() {
-    var currentQuestionNumber = questionIndex + 1;
+    var currentQuestionNumber = window.questionIndex + 1;
     var element = document.getElementById("progress");
     element.innerHTML = "Question " + currentQuestionNumber + " of " + noten;
 };
 
 function showScores() {
     console.log("show scores");
-    var gameOverHTML = "<h1>Result</h1>";
-    gameOverHTML += "<h2 id='score'> Your scores: " + score + "</h2>";
-    var element = document.getElementById("Quiz");
-    element.innerHTML = gameOverHTML;
+    swal(
+        { 
+        title: "Ergebnis",   
+        text: "Your scores: "+ score+" von "+noten,   
+        icon: "success",
+       closeOnClickOutside: false,
+       buttons: {
+         neu:{
+           text: "neues Spiel",
+           value: "neu"
+         }
+       }  
+       })
+
+       .then((value) => {
+        switch (value) {
+
+         case "neu":
+        window.questionIndex = 0;
+        score = 0;
+         displayQuiz();
+         break;
+         default:
+         swal("default");
+       }
+
+    })
+
+
+
+
+
+
 };
 
 

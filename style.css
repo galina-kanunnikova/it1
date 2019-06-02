@@ -2,9 +2,11 @@ body {
     background-color: #eeeeee;
 }
 
-
+#QuizContainer {
+    height: 60vh;
+}
 .bild{
-    position: absolute;
+    position: fixed;
     bottom: 0px;
     width: 100%;
     height: 100%;
@@ -30,13 +32,32 @@ body {
 }
 
 .container {
-background-color: red;
+background-color:lightblue;
 position: relative;
 width: 100px;
 display: block;
+border-radius: 13%;
 
 
 }
+
+.stopBtn {
+    
+    color : white;
+    font-size: 70%;
+    background:red  ;
+    display: block;
+    text-align: center;
+    padding:  14px 10px;
+    outline: none;
+    border-radius: 24px;
+    transition:  0.25s;
+    position: relative;
+    top:3vh;
+    left: 49%;
+    display: none;
+    }
+
 
 
 .startBtn {
@@ -66,7 +87,7 @@ display: block;
 
 .grid {
     width: 50%;
-    height: 50vh;
+    height: 60vh;
     margin: 0 auto;
     background-color: #fff;
     padding: 10px 50px 50px 50px;
@@ -76,11 +97,17 @@ display: block;
     position: relative;
     top: 5vh;
 }
+.container ul{
+    padding: 0px;
+    margin: 0px;
+}
+
+
 
 .grid h1 {
     font-family: "sans-serif";
     background-color: #57636e;
-    font-size: 28px;
+    font-size: 170%;
     text-align: center;
     color: #ffffff;
     padding: 2px 0px;
@@ -100,18 +127,21 @@ display: block;
 }
 
 .buttons {
-    margin-top: 30px;
+    width: 100%;
+    height: 30%;
+    padding-left: 10%;
 }
 
 #btn0, #btn1, #btn2, #btn3 {
     background-color: #778897;
-    width: 250px;
-    font-size: 20px;
+    width: 30%;
+    font-size: 120%;
     color: #fff;
     border: 1px solid #1D3C6A;
     border-radius: 50px;
     margin: 10px 40px 10px 0px;
-    padding: 10px 10px;
+    bottom: auto;
+    height: 30%;
 }
 
 #btn0:hover, #btn1:hover, #btn2:hover, #btn3:hover {
@@ -184,7 +214,19 @@ width: 0rem;
 padding-right: 40px;
   }
 #noten{
-   
-    background-color: darkgreen;
+    background-color: lightcyan;
+    height: 25%;
+    width: 100% !important ;
+    border-radius: 30px;
+    box-shadow: 0px 0px 20px #cbcbcb;
    
 } 
+
+.swal-button--confirm {
+    
+  }
+
+  .swal-button--abbrechen {
+   background-color: brown;
+    
+  }

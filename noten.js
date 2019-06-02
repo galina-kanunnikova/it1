@@ -24,16 +24,18 @@ export  function drawNote   (schl,note){
 
 console.log(schl);
  var vf = new Vex.Flow.Factory({ 
-    renderer: {elementId: 'noten', width: 100, height: 100}
+    renderer: {elementId: 'noten' ,height: "100%",width:"30%" }
   });
-  
+  const context = vf.getContext();
+  context.setViewBox(0, 25, 50, 90);
+  const svg = document.getElementById('noten')
+  svg.childNodes[0].style= "padding-left: 30%;";  
   var score = vf.EasyScore();
   var system = vf.System();
   system.addStave({
-     voices: [score.voice(score.notes(`${note}/q, B4, A4, G#4`))]
-  }).addClef(schl)
-  
+    voices: [score.voice(score.notes(`${note}/q, B4, A4, G#4`))]
+ }).addClef(schl)
+
   vf.draw();
  
 }
-
